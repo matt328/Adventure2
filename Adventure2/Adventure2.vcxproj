@@ -224,15 +224,15 @@
     <ResourceCompile Include="resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="directx.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Manifest Include="settings.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\..\Adventure2-arch\Assets\debug.spritefont" />
     <None Include=".clang-format" />
+    <None Include="Assets\debug.spritefont" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\directx.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="Assets\settings.manifest" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

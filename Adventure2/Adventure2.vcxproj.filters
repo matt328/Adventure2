@@ -43,20 +43,20 @@
     <ResourceCompile Include="resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="directx.ico">
+    <None Include="packages.config" />
+    <None Include=".clang-format" />
+    <None Include="Assets\debug.spritefont">
+      <Filter>Assets</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\directx.ico">
       <Filter>Assets</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <Manifest Include="settings.manifest">
+    <Manifest Include="Assets\settings.manifest">
       <Filter>Assets</Filter>
     </Manifest>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
-    <None Include=".clang-format" />
-    <None Include="..\..\Adventure2-arch\Assets\debug.spritefont">
-      <Filter>Assets</Filter>
-    </None>
   </ItemGroup>
 </Project>
