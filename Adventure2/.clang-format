@@ -1,0 +1,26 @@
+# Visual Studio generated .clang-format file
+
+BasedOnStyle: Microsoft
+IncludeCategories:
+  - Regex:           '.*\.generated\.h'
+    Priority:        100
+  - Regex:           '.*(PCH).*'
+    Priority:        -1
+  - Regex:           '".*"'
+    Priority:        1
+  - Regex:           '^<.*\.(h)>'
+    Priority:        3
+  - Regex:           '^<.*>'
+    Priority:        4
+PointerAlignment: Left
+Standard: Cpp11
+AlwaysBreakTemplateDeclarations: Yes
+NamespaceIndentation: All
+ForEachMacros: [TEST_CLASS, TEST_METHOD]
+IndentWidth: 3
+IndentCaseLabels: true
+BinPackArguments: false
+BreakBeforeBraces: Attach
+AllowShortBlocksOnASingleLine: true
+AllowShortFunctionsOnASingleLine: All
+AllowShortIfStatementsOnASingleLine: WithoutElse

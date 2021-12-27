@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>634012eb-f0db-45bd-a030-b5e8d478ea8d</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets">
+      <UniqueIdentifier>58cd7b4c-9d3b-4323-bb0d-c6a8e04a48c2</UniqueIdentifier>
+      <Extensions>ico;cur;bmp;dds;dlg;fbx;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="StepTimer.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceResources.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="d3dx12.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="CommandQueue.h" />
+    <ClInclude Include="FreeLookCamera.h" />
+    <ClInclude Include="ICamera.h" />
+    <ClInclude Include="Terrain.h" />
+    <ClInclude Include="TextConsole.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="DeviceResources.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="CommandQueue.cpp" />
+    <ClCompile Include="FreeLookCamera.cpp" />
+    <ClCompile Include="Terrain.cpp" />
+    <ClCompile Include="TextConsole.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="directx.ico">
+      <Filter>Assets</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Manifest Include="settings.manifest">
+      <Filter>Assets</Filter>
+    </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include=".clang-format" />
+    <None Include="..\..\Adventure2-arch\Assets\debug.spritefont">
+      <Filter>Assets</Filter>
+    </None>
+  </ItemGroup>
+</Project>
