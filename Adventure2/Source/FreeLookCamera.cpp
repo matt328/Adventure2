@@ -19,10 +19,13 @@ constexpr float MOVEMENT_GAIN = 0.07f;
 FreeLookCamera::FreeLookCamera(UINT width, UINT height)
     : ICamera(width, height), m_yaw(0.f), m_pitch(0.f), m_cameraPos(START_POSITION) {}
 
-void FreeLookCamera::Update(float elapsedTime, const DirectX::GamePad::State& pad) {}
+void FreeLookCamera::Update(float elapsedTime, const DirectX::GamePad::State& pad) {
+   UNREFERENCED_PARAMETER(elapsedTime);
+   UNREFERENCED_PARAMETER(pad);
+}
 
 void FreeLookCamera::Update(float elapsedTime, DirectX::Mouse& mouseDevice, DirectX::Keyboard& keyboard) {
-
+   UNREFERENCED_PARAMETER(elapsedTime);
    auto mouse = mouseDevice.GetState();
 
    if (mouse.positionMode == Mouse::MODE_RELATIVE) {

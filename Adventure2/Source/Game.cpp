@@ -61,7 +61,7 @@ void Game::Update(DX::StepTimer const& timer) {
 
    float elapsedTime = float(timer.GetElapsedSeconds());
 
-   m_terrain->Update(elapsedTime, m_mouse->Get(), m_keyboard->Get(), this->m_console);
+   m_terrain->Update(elapsedTime, m_mouse->Get(), m_keyboard->Get());
 
    // TODO: Add your game logic here.
    elapsedTime;

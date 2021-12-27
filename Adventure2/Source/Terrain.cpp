@@ -25,7 +25,7 @@ Terrain::Terrain(ID3D12GraphicsCommandList* commandList, std::unique_ptr<DX::Dev
 
    // Create the vertex buffer view
    m_vertexBufferView.BufferLocation = m_vertexBuffer->GetGPUVirtualAddress();
-   m_vertexBufferView.SizeInBytes = vertices.size() * sizeof(VertexType); // todo check this
+   m_vertexBufferView.SizeInBytes = (UINT)(vertices.size() * sizeof(VertexType));
    m_vertexBufferView.StrideInBytes = sizeof(VertexType);
 
    // Upload index buffer data
@@ -41,7 +41,7 @@ Terrain::Terrain(ID3D12GraphicsCommandList* commandList, std::unique_ptr<DX::Dev
    // Create the index buffer view
    m_indexBufferView.BufferLocation = m_indexBuffer->GetGPUVirtualAddress();
    m_indexBufferView.Format = DXGI_FORMAT_R16_UINT;
-   m_indexBufferView.SizeInBytes = indices.size() * sizeof(WORD); // todo check this
+   m_indexBufferView.SizeInBytes = (UINT)(indices.size() * sizeof(WORD));
 
    RenderTargetState rtState(deviceResources->GetBackBufferFormat(), deviceResources->GetDepthBufferFormat());
 
@@ -60,7 +60,7 @@ Terrain::Terrain(ID3D12GraphicsCommandList* commandList, std::unique_ptr<DX::Dev
    m_camera = std::make_unique<FreeLookCamera>(backBufferWidth, backBufferHeight);
 }
 
-void Terrain::Update(float elapsedTime, Mouse& mouse, Keyboard& keyboard, std::unique_ptr<TextConsole>& console) {
+void Terrain::Update(float elapsedTime, Mouse& mouse, Keyboard& keyboard) {
    auto current = Quaternion::CreateFromAxisAngle(ROTATION_AXIS, m_angle);
    auto target = Quaternion::CreateFromAxisAngle(ROTATION_AXIS, m_targetAngle);
 
@@ -86,5 +86,5 @@ void Terrain::Render(ID3D12GraphicsCommandList* commandList) {
 
    m_effect->Apply(commandList);
 
-   commandList->DrawIndexedInstanced(m_numIndices, 1, 0, 0, 0);
+   commandList->DrawIndexedInstanced((UINT)m_numIndices, 1, 0, 0, 0);
 }

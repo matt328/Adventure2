@@ -524,19 +524,30 @@ void DeviceResources::UpdateBufferResource(Microsoft::WRL::ComPtr<ID3D12Graphics
    size_t bufferSize = numElements * elementSize;
 
    // Create committed resource in GPU memory
-   auto a = &CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
-   ThrowIfFailed(m_d3dDevice->CreateCommittedResource(a,
+   auto heapProps = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_DEFAULT);
+   auto heapPropsRef = &heapProps;
+
+   auto resourceDesc = CD3DX12_RESOURCE_DESC::Buffer(bufferSize, flags);
+   auto resourceDescRef = &resourceDesc;
+
+   ThrowIfFailed(m_d3dDevice->CreateCommittedResource(heapPropsRef,
                                                       D3D12_HEAP_FLAG_NONE,
-                                                      &CD3DX12_RESOURCE_DESC::Buffer(bufferSize, flags),
+                                                      resourceDescRef,
                                                       D3D12_RESOURCE_STATE_COPY_DEST,
                                                       nullptr,
                                                       IID_PPV_ARGS(pDestinationResource)));
    (*pDestinationResource)->SetName(L"Destination Buffer");
 
    // Create a committed resource in CPU memory
-   ThrowIfFailed(m_d3dDevice->CreateCommittedResource(&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD),
+   auto uploadHeapProps = CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD);
+   auto uploadHeapPropsRef = &uploadHeapProps;
+
+   auto bufferDesc = CD3DX12_RESOURCE_DESC::Buffer(bufferSize);
+   auto bufferDescRef = &bufferDesc;
+
+   ThrowIfFailed(m_d3dDevice->CreateCommittedResource(uploadHeapPropsRef,
                                                       D3D12_HEAP_FLAG_NONE,
-                                                      &CD3DX12_RESOURCE_DESC::Buffer(bufferSize),
+                                                      bufferDescRef,
                                                       D3D12_RESOURCE_STATE_GENERIC_READ,
                                                       nullptr,
                                                       IID_PPV_ARGS(pIntermediateResource)));
