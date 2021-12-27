@@ -1,43 +1,77 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Common">
-      <UniqueIdentifier>634012eb-f0db-45bd-a030-b5e8d478ea8d</UniqueIdentifier>
-    </Filter>
     <Filter Include="Assets">
       <UniqueIdentifier>58cd7b4c-9d3b-4323-bb0d-c6a8e04a48c2</UniqueIdentifier>
       <Extensions>ico;cur;bmp;dds;dlg;fbx;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{8f70c457-4f0e-42b3-98cc-f6a32806a873}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Graphics">
+      <UniqueIdentifier>{a6cd90b7-3c3d-4909-969b-a166a386a580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Utils">
+      <UniqueIdentifier>{b2f64c86-9a47-430c-af64-c5a9c6a7a480}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="pch.h" />
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="StepTimer.h">
-      <Filter>Common</Filter>
+    <ClInclude Include="Source\FreeLookCamera.h">
+      <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="DeviceResources.h">
-      <Filter>Common</Filter>
+    <ClInclude Include="Source\Game.h">
+      <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="d3dx12.h">
-      <Filter>Common</Filter>
+    <ClInclude Include="Source\ICamera.h">
+      <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="CommandQueue.h" />
-    <ClInclude Include="FreeLookCamera.h" />
-    <ClInclude Include="ICamera.h" />
-    <ClInclude Include="Terrain.h" />
-    <ClInclude Include="TextConsole.h" />
+    <ClInclude Include="Source\Terrain.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\CommandQueue.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\d3dx12.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Graphics\DeviceResources.h">
+      <Filter>Source\Graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\StepTimer.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\TextConsole.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\pch.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="pch.cpp" />
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="DeviceResources.cpp">
-      <Filter>Common</Filter>
+    <ClCompile Include="Source\FreeLookCamera.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="CommandQueue.cpp" />
-    <ClCompile Include="FreeLookCamera.cpp" />
-    <ClCompile Include="Terrain.cpp" />
-    <ClCompile Include="TextConsole.cpp" />
+    <ClCompile Include="Source\Game.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Terrain.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\CommandQueue.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Graphics\DeviceResources.cpp">
+      <Filter>Source\Graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utils\Main.cpp">
+      <Filter>Source\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utils\TextConsole.cpp">
+      <Filter>Source\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\pch.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
