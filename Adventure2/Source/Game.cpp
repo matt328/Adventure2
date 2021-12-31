@@ -197,7 +197,7 @@ void Game::CreateDeviceDependentResources() {
 
    uploadResourcesFinished.wait();
 
-   auto heightData = ReadRawFile<char>("Assets//2x2.raw");
+   auto heightData = ReadRawFile<char>("Assets//heightmap-2.raw");
    size_t size = heightData.size();
    auto width = (int)std::sqrtf((float)size);
 
@@ -261,7 +261,7 @@ void Game::CreateDeviceDependentResources() {
    auto& loadCommandQueue = m_deviceResources->GetCopyCommandQueue();
    auto loadCommandList = loadCommandQueue.GetCommandList();
 
-   m_terrain = std::make_unique<Terrain>(loadCommandList.Get(), m_deviceResources, vertices, indices);
+   m_terrain = std::make_unique<Terrain>(loadCommandList.Get(), m_deviceResources, terrainVerts, terrainIndices);
 
    auto fenceValue = loadCommandQueue.ExecuteCommandList(loadCommandList);
    loadCommandQueue.WaitForFenceValue(fenceValue);

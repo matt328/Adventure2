@@ -40,13 +40,13 @@ Terrain::Terrain(ID3D12GraphicsCommandList* commandList, std::unique_ptr<DX::Dev
 
    // Create the index buffer view
    m_indexBufferView.BufferLocation = m_indexBuffer->GetGPUVirtualAddress();
-   m_indexBufferView.Format = DXGI_FORMAT_R16_UINT;
+   m_indexBufferView.Format = DXGI_FORMAT_R32_UINT;
    m_indexBufferView.SizeInBytes = (UINT)(indices.size() * sizeof(UINT));
 
    RenderTargetState rtState(deviceResources->GetBackBufferFormat(), deviceResources->GetDepthBufferFormat());
 
    EffectPipelineStateDescription pd(
-       &VertexType::InputLayout, CommonStates::Opaque, CommonStates::DepthDefault, CommonStates::CullNone, rtState);
+       &VertexType::InputLayout, CommonStates::Opaque, CommonStates::DepthDefault, CommonStates::Wireframe, rtState);
 
    m_effect = std::make_unique<BasicEffect>(device, EffectFlags::VertexColor, pd);
 
