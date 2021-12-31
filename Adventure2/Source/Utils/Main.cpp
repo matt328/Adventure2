@@ -4,7 +4,6 @@
 
 #include "pch.h"
 #include "Game.h"
-#include "Log.h"
 
 using namespace DirectX;
 
@@ -37,8 +36,6 @@ int WINAPI wWinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, 
                     _In_ int nCmdShow) {
    UNREFERENCED_PARAMETER(hPrevInstance);
    UNREFERENCED_PARAMETER(lpCmdLine);
-
-   Log::Init();
 
    if (!XMVerifyCPUSupport()) return 1;
 

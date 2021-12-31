@@ -14,7 +14,7 @@ constexpr DirectX::SimpleMath::Vector3 UP = DirectX::SimpleMath::Vector3(0, 1, 0
 class Terrain {
  public:
    Terrain(ID3D12GraphicsCommandList* commandList, std::unique_ptr<DX::DeviceResources>& deviceResources,
-           std::vector<VertexType> vertices, std::vector<UINT> indices);
+           std::vector<VertexType> vertices, std::vector<WORD> indices);
    ~Terrain();
    void Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& keyboard);
    void Render(ID3D12GraphicsCommandList* commandList);
