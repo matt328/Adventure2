@@ -4,6 +4,7 @@
 
 #include "pch.h"
 #include "Game.h"
+#include "FileUtils.h"
 
 extern void ExitGame() noexcept;
 
@@ -196,7 +197,53 @@ void Game::CreateDeviceDependentResources() {
 
    uploadResourcesFinished.wait();
 
-   // Initialize 'Terrain'
+   auto heightData = ReadRawFile<char>("Assets//2x2.raw");
+   size_t size = heightData.size();
+   auto width = (int)std::sqrtf((float)size);
+
+   std::vector<VertexType> terrainVerts;
+   terrainVerts.reserve(size);
+
+   std::vector<UINT> terrainIndices;
+
+   int pos = 0;
+   for (int row = 0; row < width; ++row) {
+      for (int col = 0; col < width; ++col) {
+         float x = (float)row;
+         float y = (float)(heightData[pos]);
+         float z = (float)col;
+         auto color = Vector4{};
+         switch (pos) {
+            case 0: // Red
+               color.x = 1.f;
+               break;
+            case 1: // Green
+               color.y = 1.f;
+               break;
+            case 2: // Blue
+               color.z = 1.f;
+               break;
+            default: // White
+               color = Vector4::One;
+         }
+         terrainVerts.push_back({Vector3(x, y, z), Vector3(0.f, 1.f, 0.f)});
+         pos++;
+      }
+   }
+
+   for (int y = 0; y < width - 1; ++y) {
+      for (int x = 0; x < width - 1; ++x) {
+         UINT start = y * width + x;
+         terrainIndices.push_back(start);
+         terrainIndices.push_back(start + 1);
+         terrainIndices.push_back(start + width);
+
+         terrainIndices.push_back(start + 1);
+         terrainIndices.push_back(start + 1 + width);
+         terrainIndices.push_back(start + width);
+      }
+   }
+
    std::vector<VertexType> vertices = {
        {Vector3(-1.0f, -1.0f, -1.0f), Vector3(0.0f, 0.0f, 0.0f)}, // 0
        {Vector3(-1.0f, 1.0f, -1.0f), Vector3(0.0f, 1.0f, 0.0f)},  // 1
@@ -208,7 +255,7 @@ void Game::CreateDeviceDependentResources() {
        {Vector3(1.0f, -1.0f, 1.0f), Vector3(1.0f, 0.0f, 1.0f)}    // 7
    };
 
-   std::vector<WORD> indices = {0, 1, 2, 0, 2, 3, 4, 6, 5, 4, 7, 6, 4, 5, 1, 4, 1, 0,
+   std::vector<UINT> indices = {0, 1, 2, 0, 2, 3, 4, 6, 5, 4, 7, 6, 4, 5, 1, 4, 1, 0,
                                 3, 2, 6, 3, 6, 7, 1, 5, 6, 1, 6, 2, 4, 0, 3, 4, 3, 7};
 
    auto& loadCommandQueue = m_deviceResources->GetCopyCommandQueue();

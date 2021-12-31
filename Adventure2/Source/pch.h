@@ -56,6 +56,7 @@
 #include <cstring>
 #include <cwchar>
 #include <exception>
+#include <fstream>
 #include <iterator>
 #include <memory>
 #include <stdexcept>

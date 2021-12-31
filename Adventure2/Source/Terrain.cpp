@@ -8,7 +8,7 @@ using namespace DirectX::SimpleMath;
 using Microsoft::WRL::ComPtr;
 
 Terrain::Terrain(ID3D12GraphicsCommandList* commandList, std::unique_ptr<DX::DeviceResources>& deviceResources,
-                 std::vector<VertexType> vertices, std::vector<WORD> indices)
+                 std::vector<VertexType> vertices, std::vector<UINT> indices)
     : m_numIndices(indices.size()), m_originalRotation(Quaternion::Identity) {
 
    auto device = deviceResources->GetD3DDevice();
@@ -33,7 +33,7 @@ Terrain::Terrain(ID3D12GraphicsCommandList* commandList, std::unique_ptr<DX::Dev
                                          &m_indexBuffer,
                                          &m_intermediateIndexBuffer,
                                          indices.size(),
-                                         sizeof(WORD),
+                                         sizeof(UINT),
                                          &indices[0],
                                          D3D12_RESOURCE_FLAG_NONE);
    m_intermediateIndexBuffer->SetName(L"Intermediate Index Buffer");
@@ -41,7 +41,7 @@ Terrain::Terrain(ID3D12GraphicsCommandList* commandList, std::unique_ptr<DX::Dev
    // Create the index buffer view
    m_indexBufferView.BufferLocation = m_indexBuffer->GetGPUVirtualAddress();
    m_indexBufferView.Format = DXGI_FORMAT_R16_UINT;
-   m_indexBufferView.SizeInBytes = (UINT)(indices.size() * sizeof(WORD));
+   m_indexBufferView.SizeInBytes = (UINT)(indices.size() * sizeof(UINT));
 
    RenderTargetState rtState(deviceResources->GetBackBufferFormat(), deviceResources->GetDepthBufferFormat());
 
@@ -83,7 +83,7 @@ void Terrain::Render(ID3D12GraphicsCommandList* commandList) {
    commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
    commandList->IASetVertexBuffers(0, 1, &m_vertexBufferView);
    commandList->IASetIndexBuffer(&m_indexBufferView);
-
+   m_effect->EnableDefaultLighting();
    m_effect->Apply(commandList);
 
    commandList->DrawIndexedInstanced((UINT)m_numIndices, 1, 0, 0, 0);

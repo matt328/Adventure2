@@ -46,6 +46,12 @@
     <ClInclude Include="Source\pch.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="FileUtils.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Log.h">
+      <Filter>Source\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\FreeLookCamera.cpp">
@@ -72,6 +78,9 @@
     <ClCompile Include="Source\pch.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Utils\Log.cpp">
+      <Filter>Source\Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -80,6 +89,15 @@
     <None Include="packages.config" />
     <None Include=".clang-format" />
     <None Include="Assets\debug.spritefont">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="Assets\heightmap.raw">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="Assets\test3.raw">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="Assets\heightmap-2.raw">
       <Filter>Assets</Filter>
     </None>
   </ItemGroup>
