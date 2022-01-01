@@ -197,7 +197,8 @@ void Game::CreateDeviceDependentResources() {
 
    uploadResourcesFinished.wait();
 
-   auto heightData = ReadRawFile<char>("Assets//heightmap-2.raw");
+   auto heightData = ReadRawFile("Assets//hmap-16.raw", 255);
+
    size_t size = heightData.size();
    auto width = (int)std::sqrtf((float)size);
 
@@ -210,7 +211,7 @@ void Game::CreateDeviceDependentResources() {
    for (int row = 0; row < width; ++row) {
       for (int col = 0; col < width; ++col) {
          float x = (float)row;
-         float y = (float)(heightData[pos]);
+         float y = (heightData[pos]);
          float z = (float)col;
          auto color = Vector4{};
          switch (pos) {

@@ -91,13 +91,7 @@
     <None Include="Assets\debug.spritefont">
       <Filter>Assets</Filter>
     </None>
-    <None Include="Assets\heightmap.raw">
-      <Filter>Assets</Filter>
-    </None>
-    <None Include="Assets\test3.raw">
-      <Filter>Assets</Filter>
-    </None>
-    <None Include="Assets\heightmap-2.raw">
+    <None Include="Assets\hmap-16.raw">
       <Filter>Assets</Filter>
     </None>
   </ItemGroup>

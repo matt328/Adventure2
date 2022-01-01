@@ -231,9 +231,7 @@
   <ItemGroup>
     <None Include=".clang-format" />
     <None Include="Assets\debug.spritefont" />
-    <None Include="Assets\heightmap-2.raw" />
-    <None Include="Assets\heightmap.raw" />
-    <None Include="Assets\test3.raw" />
+    <None Include="Assets\hmap-16.raw" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
