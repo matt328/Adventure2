@@ -43,27 +43,21 @@ void FreeLookCamera::Update(float elapsedTime, DirectX::Mouse& mouseDevice, Dire
       m_pitch = m_yaw = 0;
    }
 
-   Vector3 move = Vector3::Zero;
+   Quaternion q = Quaternion::CreateFromYawPitchRoll(m_yaw, -m_pitch, 0.f);
 
-   if (kb.Up || kb.W) move.y += 1.f;
+   auto distance = Vector3::Zero;
 
-   if (kb.Down || kb.S) move.y -= 1.f;
+   if (kb.Up || kb.W) distance.z += 1.f;
+   if (kb.Down || kb.S) distance.z -= 1.f;
+   if (kb.Left || kb.A) distance.x += 1.f;
+   if (kb.Right || kb.D) distance.x -= 1.f;
 
-   if (kb.Left || kb.A) move.x += 1.f;
+   distance *= MOVEMENT_GAIN;
 
-   if (kb.Right || kb.D) move.x -= 1.f;
+   auto transformed = Vector3::Transform(distance, q);
+   transformed.Normalize();
 
-   if (kb.PageUp || kb.Space) move.z += 1.f;
-
-   if (kb.PageDown || kb.X) move.z -= 1.f;
-
-   Quaternion q = Quaternion::CreateFromYawPitchRoll(m_yaw, m_pitch, 0.f);
-
-   move = Vector3::Transform(move, q);
-
-   move *= MOVEMENT_GAIN;
-
-   m_cameraPos += move;
+   m_cameraPos += Vector3(transformed);
 
    // limit pitch to straight up or straight down
    constexpr float limit = XM_PIDIV2 - 0.01f;
