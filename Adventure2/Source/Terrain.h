@@ -15,11 +15,19 @@ class Terrain {
  public:
    Terrain(ID3D12GraphicsCommandList* commandList, std::unique_ptr<DX::DeviceResources>& deviceResources,
            std::vector<VertexType> vertices, std::vector<UINT> indices);
+
+   Terrain(ID3D12GraphicsCommandList* commandList, std::unique_ptr<DX::DeviceResources>& deviceResources,
+           std::string heightmapFile);
+
    ~Terrain();
+
    void Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& keyboard);
    void Render(ID3D12GraphicsCommandList* commandList);
 
  private:
+   void Setup(std::vector<VertexType> vertices, std::vector<UINT> indices,
+              std::unique_ptr<DX::DeviceResources>& deviceResources, ID3D12GraphicsCommandList* commandList);
+
    std::unique_ptr<DirectX::BasicEffect> m_effect;
    std::unique_ptr<DirectX::PrimitiveBatch<VertexType>> m_batch;
 
@@ -32,7 +40,7 @@ class Terrain {
    Microsoft::WRL::ComPtr<ID3D12Resource> m_indexBuffer;
    D3D12_INDEX_BUFFER_VIEW m_indexBufferView;
 
-   const size_t m_numIndices;
+   size_t m_numIndices;
 
    DirectX::SimpleMath::Quaternion m_originalRotation;
 

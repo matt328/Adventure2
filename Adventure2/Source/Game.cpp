@@ -4,7 +4,6 @@
 
 #include "pch.h"
 #include "Game.h"
-#include "FileUtils.h"
 
 extern void ExitGame() noexcept;
 
@@ -62,7 +61,10 @@ void Game::Update(DX::StepTimer const& timer) {
 
    float elapsedTime = float(timer.GetElapsedSeconds());
 
-   m_terrain->Update(elapsedTime, m_mouse->Get(), m_keyboard->Get());
+   auto& mouse = m_mouse->Get();
+   auto& kb = m_keyboard->Get();
+
+   m_scene->Update(elapsedTime, mouse, kb);
 
    // TODO: Add your game logic here.
    elapsedTime;
@@ -85,7 +87,7 @@ void Game::Render() {
    PIXBeginEvent(commandList, PIX_COLOR_DEFAULT, L"Render");
 
    // TODO: Add your rendering code here.
-   m_terrain->Render(commandList);
+   m_scene->Render(commandList);
 
    PIXEndEvent(commandList);
 
@@ -197,75 +199,7 @@ void Game::CreateDeviceDependentResources() {
 
    uploadResourcesFinished.wait();
 
-   auto heightData = ReadRawFile("Assets//hmap-16.raw", 255);
-
-   size_t size = heightData.size();
-   auto width = (int)std::sqrtf((float)size);
-
-   std::vector<VertexType> terrainVerts;
-   terrainVerts.reserve(size);
-
-   std::vector<UINT> terrainIndices;
-
-   int pos = 0;
-   for (int row = 0; row < width; ++row) {
-      for (int col = 0; col < width; ++col) {
-         float x = (float)row;
-         float y = (heightData[pos]);
-         float z = (float)col;
-         auto color = Vector4{};
-         switch (pos) {
-            case 0: // Red
-               color.x = 1.f;
-               break;
-            case 1: // Green
-               color.y = 1.f;
-               break;
-            case 2: // Blue
-               color.z = 1.f;
-               break;
-            default: // White
-               color = Vector4::One;
-         }
-         terrainVerts.push_back({Vector3(x, y, z), Vector3(0.f, 1.f, 0.f)});
-         pos++;
-      }
-   }
-
-   for (int y = 0; y < width - 1; ++y) {
-      for (int x = 0; x < width - 1; ++x) {
-         UINT start = y * width + x;
-         terrainIndices.push_back(start);
-         terrainIndices.push_back(start + 1);
-         terrainIndices.push_back(start + width);
-
-         terrainIndices.push_back(start + 1);
-         terrainIndices.push_back(start + 1 + width);
-         terrainIndices.push_back(start + width);
-      }
-   }
-
-   std::vector<VertexType> vertices = {
-       {Vector3(-1.0f, -1.0f, -1.0f), Vector3(0.0f, 0.0f, 0.0f)}, // 0
-       {Vector3(-1.0f, 1.0f, -1.0f), Vector3(0.0f, 1.0f, 0.0f)},  // 1
-       {Vector3(1.0f, 1.0f, -1.0f), Vector3(1.0f, 1.0f, 0.0f)},   // 2
-       {Vector3(1.0f, -1.0f, -1.0f), Vector3(1.0f, 0.0f, 0.0f)},  // 3
-       {Vector3(-1.0f, -1.0f, 1.0f), Vector3(0.0f, 0.0f, 1.0f)},  // 4
-       {Vector3(-1.0f, 1.0f, 1.0f), Vector3(0.0f, 1.0f, 1.0f)},   // 5
-       {Vector3(1.0f, 1.0f, 1.0f), Vector3(1.0f, 1.0f, 1.0f)},    // 6
-       {Vector3(1.0f, -1.0f, 1.0f), Vector3(1.0f, 0.0f, 1.0f)}    // 7
-   };
-
-   std::vector<UINT> indices = {0, 1, 2, 0, 2, 3, 4, 6, 5, 4, 7, 6, 4, 5, 1, 4, 1, 0,
-                                3, 2, 6, 3, 6, 7, 1, 5, 6, 1, 6, 2, 4, 0, 3, 4, 3, 7};
-
-   auto& loadCommandQueue = m_deviceResources->GetCopyCommandQueue();
-   auto loadCommandList = loadCommandQueue.GetCommandList();
-
-   m_terrain = std::make_unique<Terrain>(loadCommandList.Get(), m_deviceResources, terrainVerts, terrainIndices);
-
-   auto fenceValue = loadCommandQueue.ExecuteCommandList(loadCommandList);
-   loadCommandQueue.WaitForFenceValue(fenceValue);
+   m_scene = std::make_unique<Scene>(m_deviceResources);
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.
@@ -278,7 +212,7 @@ void Game::OnDeviceLost() {
 
    // If using the DirectX Tool Kit for DX12, uncomment this line:
    m_graphicsMemory.reset();
-   m_terrain.reset();
+   m_scene.reset();
 }
 
 void Game::OnDeviceRestored() {

@@ -5,6 +5,7 @@
 #pragma once
 
 #include "DeviceResources.h"
+#include "Scene.h"
 #include "StepTimer.h"
 #include "Terrain.h"
 #include "TextConsole.h"
@@ -61,8 +62,6 @@ class Game final : public DX::IDeviceNotify {
    // If using the DirectX Tool Kit for DX12, uncomment this line:
    std::unique_ptr<DirectX::GraphicsMemory> m_graphicsMemory;
 
-   std::unique_ptr<Terrain> m_terrain;
-
    std::unique_ptr<DirectX::GamePad> m_gamePad;
 
    std::unique_ptr<DirectX::Keyboard> m_keyboard;
@@ -72,6 +71,8 @@ class Game final : public DX::IDeviceNotify {
 
    std::unique_ptr<DirectX::DescriptorHeap> m_resourceDescriptors;
    std::unique_ptr<DirectX::SpriteFont> m_font;
+
+   std::unique_ptr<Scene> m_scene;
 
    enum Descriptors
    {

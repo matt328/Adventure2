@@ -19,8 +19,10 @@ NamespaceIndentation: All
 ForEachMacros: [TEST_CLASS, TEST_METHOD]
 IndentWidth: 3
 IndentCaseLabels: true
-BinPackArguments: false
+BinPackArguments: true
+BinPackParameters: true
 BreakBeforeBraces: Attach
 AllowShortBlocksOnASingleLine: true
 AllowShortFunctionsOnASingleLine: All
 AllowShortIfStatementsOnASingleLine: WithoutElse
+
