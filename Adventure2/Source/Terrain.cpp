@@ -96,6 +96,8 @@ void Terrain::Setup(std::vector<VertexType> vertices, std::vector<UINT> indices,
    m_camera = std::make_unique<FreeLookCamera>(backBufferWidth, backBufferHeight);
 }
 
+void Terrain::Update(float elapsedTime, GamePad& gamePad) { m_camera->Update(elapsedTime, gamePad.GetState(0)); }
+
 void Terrain::Update(float elapsedTime, Mouse& mouse, Keyboard& keyboard) {
    auto current = Quaternion::CreateFromAxisAngle(ROTATION_AXIS, m_angle);
    auto target = Quaternion::CreateFromAxisAngle(ROTATION_AXIS, m_targetAngle);

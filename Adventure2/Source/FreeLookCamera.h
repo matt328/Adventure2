@@ -9,7 +9,7 @@ class FreeLookCamera : public ICamera {
 
    ~FreeLookCamera() {}
 
-   void Update(float elapsedTime, const DirectX::GamePad::State& pad) override;
+   void Update(float elapsedTime, DirectX::GamePad::State& pad) override;
    void Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& kb) override;
 
  protected:

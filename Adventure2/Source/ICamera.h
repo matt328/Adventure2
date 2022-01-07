@@ -14,7 +14,7 @@ class ICamera {
 
    virtual ~ICamera(){};
    // Update the view matrix based on gamepad input
-   virtual void Update(float elapsedTime, const DirectX::GamePad::State& pad) = 0;
+   virtual void Update(float elapsedTime, DirectX::GamePad::State& pad) = 0;
    // Update the view matrix based on kb/mouse input
    virtual void Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& kb) = 0;
 

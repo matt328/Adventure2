@@ -21,6 +21,7 @@ class Terrain {
 
    ~Terrain();
 
+   void Update(float elapsedTime, DirectX::GamePad& gamePad);
    void Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& keyboard);
    void Render(ID3D12GraphicsCommandList* commandList);
 

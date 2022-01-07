@@ -64,7 +64,10 @@ void Game::Update(DX::StepTimer const& timer) {
    auto& mouse = m_mouse->Get();
    auto& kb = m_keyboard->Get();
 
+   m_scene->Update(elapsedTime, m_gamePad->Get());
    m_scene->Update(elapsedTime, mouse, kb);
+
+   if (kb.GetState().Escape) { ExitGame(); }
 
    // TODO: Add your game logic here.
    elapsedTime;
@@ -163,8 +166,8 @@ void Game::OnWindowSizeChanged(int width, int height) {
 // Properties
 void Game::GetDefaultSize(int& width, int& height) const noexcept {
    // TODO: Change to desired default window size (note minimum size is 320x200).
-   width = 800;
-   height = 600;
+   width = 1280;
+   height = 720;
 }
 #pragma endregion
 

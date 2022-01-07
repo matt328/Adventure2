@@ -13,6 +13,10 @@ Scene::Scene(std::unique_ptr<DX::DeviceResources>& deviceResources) {
 
 Scene::~Scene() {}
 
+void Scene::Update(float elapsedTime, DirectX::GamePad& gamePad) {
+   m_terrain->Update(elapsedTime, gamePad);
+}
+
 void Scene::Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& keyboard) {
    m_terrain->Update(elapsedTime, mouse, keyboard);
 }

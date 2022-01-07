@@ -5,7 +5,7 @@ using namespace DirectX::SimpleMath;
 using namespace DirectX;
 
 const XMVECTORF32 START_POSITION = {0.f, 0.f, -10.f, 0.f};
-constexpr float ROTATION_GAIN = 0.0004f;
+constexpr float ROTATION_GAIN = 0.0016f;
 constexpr float MOVEMENT_GAIN = 0.07f;
 
 #define MY_PRINTF(...)                                                                                                 \
@@ -18,9 +18,10 @@ constexpr float MOVEMENT_GAIN = 0.07f;
 FreeLookCamera::FreeLookCamera(UINT width, UINT height)
     : ICamera(width, height), m_yaw(0.f), m_pitch(0.f), m_cameraPos(START_POSITION) {}
 
-void FreeLookCamera::Update(float elapsedTime, const DirectX::GamePad::State& pad) {
+void FreeLookCamera::Update(float elapsedTime, DirectX::GamePad::State& pad) {
    UNREFERENCED_PARAMETER(elapsedTime);
-   UNREFERENCED_PARAMETER(pad);
+   m_pitch -= pad.thumbSticks.rightY * 0.01f;
+   m_yaw -= pad.thumbSticks.rightX * 0.01f;
 }
 
 void FreeLookCamera::Update(float elapsedTime, DirectX::Mouse& mouseDevice, DirectX::Keyboard& keyboard) {
@@ -34,7 +35,7 @@ void FreeLookCamera::Update(float elapsedTime, DirectX::Mouse& mouseDevice, Dire
       m_yaw -= delta.x;
    }
 
-   mouseDevice.SetMode(mouse.leftButton ? Mouse::MODE_RELATIVE : Mouse::MODE_ABSOLUTE);
+   mouseDevice.SetMode(mouse.rightButton ? Mouse::MODE_RELATIVE : Mouse::MODE_ABSOLUTE);
 
    auto kb = keyboard.GetState();
 
@@ -51,6 +52,8 @@ void FreeLookCamera::Update(float elapsedTime, DirectX::Mouse& mouseDevice, Dire
    if (kb.Down || kb.S) distance.z -= 1.f;
    if (kb.Left || kb.A) distance.x += 1.f;
    if (kb.Right || kb.D) distance.x -= 1.f;
+   if (kb.R || kb.PageUp) distance.y += 1.f;
+   if (kb.F || kb.PageDown) distance.y -= 1.f;
 
    distance *= MOVEMENT_GAIN;
 
