@@ -3,6 +3,9 @@
 
 class ICamera;
 class TextConsole;
+namespace DirectX {
+   class BasicEffect;
+}
 
 using VertexType = DirectX::VertexPositionColor;
 
@@ -21,15 +24,12 @@ class Terrain {
 
    ~Terrain();
 
-   void Update(float elapsedTime, DirectX::GamePad& gamePad);
-   void Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& keyboard);
-   void Render(ID3D12GraphicsCommandList* commandList);
+   void Render(ID3D12GraphicsCommandList* commandList, DirectX::BasicEffect* effect);
 
  private:
    void Setup(std::vector<VertexType> vertices, std::vector<UINT> indices,
               std::unique_ptr<DX::DeviceResources>& deviceResources, ID3D12GraphicsCommandList* commandList);
 
-   std::unique_ptr<DirectX::BasicEffect> m_effect;
    std::unique_ptr<DirectX::PrimitiveBatch<VertexType>> m_batch;
 
    Microsoft::WRL::ComPtr<ID3D12Resource> m_intermediateVertexBuffer;
@@ -43,12 +43,5 @@ class Terrain {
 
    size_t m_numIndices;
 
-   DirectX::SimpleMath::Quaternion m_originalRotation;
-
-   float m_angle = 0.f;
-   float m_targetAngle = 0.0f;
-
    DirectX::SimpleMath::Matrix m_world;
-
-   std::unique_ptr<ICamera> m_camera;
 };

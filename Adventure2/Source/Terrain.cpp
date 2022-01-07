@@ -10,7 +10,7 @@ using Microsoft::WRL::ComPtr;
 
 Terrain::Terrain(ID3D12GraphicsCommandList* commandList, std::unique_ptr<DX::DeviceResources>& deviceResources,
                  std::vector<VertexType> vertices, std::vector<UINT> indices)
-    : m_numIndices(indices.size()), m_originalRotation(Quaternion::Identity) {
+    : m_numIndices(indices.size()) {
 
    Setup(vertices, indices, deviceResources, commandList);
 }
@@ -57,7 +57,6 @@ Terrain::Terrain(ID3D12GraphicsCommandList* commandList, std::unique_ptr<DX::Dev
 
 void Terrain::Setup(std::vector<VertexType> vertices, std::vector<UINT> indices,
                     std::unique_ptr<DX::DeviceResources>& deviceResources, ID3D12GraphicsCommandList* commandList) {
-   auto device = deviceResources->GetD3DDevice();
 
    // Upload vertex buffer data
    deviceResources->UpdateBufferResource(commandList, &m_vertexBuffer, &m_intermediateVertexBuffer, vertices.size(),
@@ -78,51 +77,18 @@ void Terrain::Setup(std::vector<VertexType> vertices, std::vector<UINT> indices,
    m_indexBufferView.BufferLocation = m_indexBuffer->GetGPUVirtualAddress();
    m_indexBufferView.Format = DXGI_FORMAT_R32_UINT;
    m_indexBufferView.SizeInBytes = (UINT)(indices.size() * sizeof(UINT));
-
-   RenderTargetState rtState(deviceResources->GetBackBufferFormat(), deviceResources->GetDepthBufferFormat());
-
-   EffectPipelineStateDescription pd(&VertexType::InputLayout, CommonStates::Opaque, CommonStates::DepthDefault,
-                                     CommonStates::Wireframe, rtState);
-
-   m_effect = std::make_unique<BasicEffect>(device, EffectFlags::VertexColor, pd);
-
-   // Set up matrices
-   m_world = Matrix::Identity;
-
-   auto outputSize = deviceResources->GetOutputSize();
-   const UINT backBufferWidth = std::max<UINT>(static_cast<UINT>(outputSize.right - outputSize.left), 1u);
-   const UINT backBufferHeight = std::max<UINT>(static_cast<UINT>(outputSize.bottom - outputSize.top), 1u);
-
-   m_camera = std::make_unique<FreeLookCamera>(backBufferWidth, backBufferHeight);
-}
-
-void Terrain::Update(float elapsedTime, GamePad& gamePad) { m_camera->Update(elapsedTime, gamePad.GetState(0)); }
-
-void Terrain::Update(float elapsedTime, Mouse& mouse, Keyboard& keyboard) {
-   auto current = Quaternion::CreateFromAxisAngle(ROTATION_AXIS, m_angle);
-   auto target = Quaternion::CreateFromAxisAngle(ROTATION_AXIS, m_targetAngle);
-
-   current.Slerp(current, target, elapsedTime);
-
-   m_world = Matrix::CreateFromQuaternion(current);
-
-   m_world *= Matrix::CreateTranslation({0.f, 0.f, 0.f});
-
-   m_camera->Update(elapsedTime, mouse, keyboard);
-
-   m_effect->SetWorld(m_world);
-   m_effect->SetProjection(m_camera->GetProjection());
-   m_effect->SetView(m_camera->GetView());
 }
 
 Terrain::~Terrain() {}
 
-void Terrain::Render(ID3D12GraphicsCommandList* commandList) {
+void Terrain::Render(ID3D12GraphicsCommandList* commandList, BasicEffect* effect) {
    commandList->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
    commandList->IASetVertexBuffers(0, 1, &m_vertexBufferView);
    commandList->IASetIndexBuffer(&m_indexBufferView);
-   m_effect->EnableDefaultLighting();
-   m_effect->Apply(commandList);
+
+   effect->SetWorld(m_world);
+   effect->EnableDefaultLighting();
+   effect->Apply(commandList);
 
    commandList->DrawIndexedInstanced((UINT)m_numIndices, 1, 0, 0, 0);
 }

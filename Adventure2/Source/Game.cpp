@@ -4,6 +4,7 @@
 
 #include "pch.h"
 #include "Game.h"
+#include "FreeLookCamera.h"
 
 extern void ExitGame() noexcept;
 
@@ -202,7 +203,13 @@ void Game::CreateDeviceDependentResources() {
 
    uploadResourcesFinished.wait();
 
-   m_scene = std::make_unique<Scene>(m_deviceResources);
+   auto outputSize = m_deviceResources->GetOutputSize();
+   const UINT backBufferWidth = std::max<UINT>(static_cast<UINT>(outputSize.right - outputSize.left), 1u);
+   const UINT backBufferHeight = std::max<UINT>(static_cast<UINT>(outputSize.bottom - outputSize.top), 1u);
+
+   auto camera = std::make_unique<FreeLookCamera>(backBufferWidth, backBufferHeight);
+
+   m_scene = std::make_unique<Scene>(m_deviceResources, std::move(camera));
 }
 
 // Allocate all memory resources that change on a window SizeChanged event.

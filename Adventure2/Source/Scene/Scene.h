@@ -1,12 +1,13 @@
 #pragma once
 
 #include "DeviceResources.h"
+#include "Effects.h"
 #include "ICamera.h"
 #include "Terrain.h"
 
 class Scene final {
  public:
-   Scene(std::unique_ptr<DX::DeviceResources>& deviceResources) noexcept(false);
+   Scene(std::unique_ptr<DX::DeviceResources>& deviceResources, std::unique_ptr<ICamera> mainCamera) noexcept(false);
    ~Scene();
 
    Scene(Scene&&) = default;
@@ -22,4 +23,5 @@ class Scene final {
  private:
    std::unique_ptr<ICamera> m_camera;
    std::unique_ptr<Terrain> m_terrain;
+   std::unique_ptr<DirectX::BasicEffect> m_basicEffect;
 };
