@@ -15,18 +15,16 @@ Scene::Scene(std::unique_ptr<DX::DeviceResources>& deviceResources, std::unique_
 
    RenderTargetState rtState(deviceResources->GetBackBufferFormat(), deviceResources->GetDepthBufferFormat());
 
-   EffectPipelineStateDescription pd(&VertexType::InputLayout, CommonStates::Opaque, CommonStates::DepthDefault,
-                                     CommonStates::Wireframe, rtState);
+   EffectPipelineStateDescription pd(
+       &VertexType::InputLayout, CommonStates::Opaque, CommonStates::DepthDefault, CommonStates::Wireframe, rtState);
 
    m_basicEffect = std::make_unique<BasicEffect>(deviceResources->GetD3DDevice(), EffectFlags::VertexColor, pd);
 }
 
 Scene::~Scene() {}
 
-void Scene::Update(float elapsedTime, DirectX::GamePad& gamePad) { m_camera->Update(elapsedTime, gamePad.GetState(0)); }
-
-void Scene::Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& keyboard) {
-   m_camera->Update(elapsedTime, mouse, keyboard);
+void Scene::Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& keyboard, DirectX::GamePad& gamePad) {
+   m_camera->Update(elapsedTime, mouse, keyboard, gamePad);
 }
 
 void Scene::Render(ID3D12GraphicsCommandList* commandList) {

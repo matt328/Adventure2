@@ -65,8 +65,7 @@ void Game::Update(DX::StepTimer const& timer) {
    auto& mouse = m_mouse->Get();
    auto& kb = m_keyboard->Get();
 
-   m_scene->Update(elapsedTime, m_gamePad->Get());
-   m_scene->Update(elapsedTime, mouse, kb);
+   m_scene->Update(elapsedTime, mouse, kb, m_gamePad->Get());
 
    if (kb.GetState().Escape) { ExitGame(); }
 

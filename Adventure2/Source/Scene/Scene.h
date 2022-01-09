@@ -16,8 +16,7 @@ class Scene final {
    Scene(Scene const&) = delete;
    Scene& operator=(Scene const&) = delete;
 
-   void Update(float elapsedTime, DirectX::GamePad& gamePad);
-   void Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& keyboard);
+   void Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& keyboard, DirectX::GamePad& gamePad);
    void Render(ID3D12GraphicsCommandList* commandList);
 
  private:

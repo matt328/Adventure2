@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "FreeLookCamera.h"
+#include "Log.h"
 
 using namespace DirectX::SimpleMath;
 using namespace DirectX;
@@ -16,16 +17,27 @@ constexpr float MOVEMENT_GAIN = 0.07f;
    }
 
 FreeLookCamera::FreeLookCamera(UINT width, UINT height)
-    : ICamera(width, height), m_yaw(0.f), m_pitch(0.f), m_cameraPos(START_POSITION) {}
+    : ICamera(width, height)
+    , m_yaw(0.f)
+    , m_pitch(0.f)
+    , m_cameraPos(START_POSITION) {}
 
-void FreeLookCamera::Update(float elapsedTime, DirectX::GamePad::State& pad) {
+void FreeLookCamera::Update(float elapsedTime,
+                            DirectX::Mouse& mouseDevice,
+                            DirectX::Keyboard& keyboard,
+                            DirectX::GamePad& pad) {
    UNREFERENCED_PARAMETER(elapsedTime);
-   m_pitch -= pad.thumbSticks.rightY * 0.01f;
-   m_yaw -= pad.thumbSticks.rightX * 0.01f;
-}
 
-void FreeLookCamera::Update(float elapsedTime, DirectX::Mouse& mouseDevice, DirectX::Keyboard& keyboard) {
-   UNREFERENCED_PARAMETER(elapsedTime);
+   auto padState = pad.GetState(0);
+
+   m_pitch -= padState.thumbSticks.rightY * 0.025f;
+   m_yaw -= padState.thumbSticks.rightX * 0.025f;
+
+   auto distance = Vector3::Zero;
+
+   distance.z += padState.thumbSticks.leftY;
+   distance.x -= padState.thumbSticks.leftX;
+
    auto mouse = mouseDevice.GetState();
 
    if (mouse.positionMode == Mouse::MODE_RELATIVE) {
@@ -44,10 +56,6 @@ void FreeLookCamera::Update(float elapsedTime, DirectX::Mouse& mouseDevice, Dire
       m_pitch = m_yaw = 0;
    }
 
-   Quaternion q = Quaternion::CreateFromYawPitchRoll(m_yaw, -m_pitch, 0.f);
-
-   auto distance = Vector3::Zero;
-
    if (kb.Up || kb.W) distance.z += 1.f;
    if (kb.Down || kb.S) distance.z -= 1.f;
    if (kb.Left || kb.A) distance.x += 1.f;
@@ -55,10 +63,8 @@ void FreeLookCamera::Update(float elapsedTime, DirectX::Mouse& mouseDevice, Dire
    if (kb.R || kb.PageUp) distance.y += 1.f;
    if (kb.F || kb.PageDown) distance.y -= 1.f;
 
-   distance *= MOVEMENT_GAIN;
-
+   Quaternion q = Quaternion::CreateFromYawPitchRoll(m_yaw, -m_pitch, 0.f);
    auto transformed = Vector3::Transform(distance, q);
-   transformed.Normalize();
 
    m_cameraPos += Vector3(transformed);
 

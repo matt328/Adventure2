@@ -5,18 +5,21 @@ class ICamera {
 
  public:
    ICamera(UINT width, UINT height, float fov = 70.f, float nearDist = 0.1f, float farDist = 10000.f)
-       : m_width(width), m_height(height), m_fov(fov), m_nearDist(nearDist), m_farDist(farDist),
-         m_view(DirectX::SimpleMath::Matrix::Identity), m_cameraPosition(DirectX::SimpleMath::Vector3::Zero) {
+       : m_width(width)
+       , m_height(height)
+       , m_fov(fov)
+       , m_nearDist(nearDist)
+       , m_farDist(farDist)
+       , m_view(DirectX::SimpleMath::Matrix::Identity)
+       , m_cameraPosition(DirectX::SimpleMath::Vector3::Zero) {
       m_projection = UpdateProjection();
    };
    ICamera(ICamera&&) = delete;
    ICamera(ICamera const&) = delete;
 
    virtual ~ICamera(){};
-   // Update the view matrix based on gamepad input
-   virtual void Update(float elapsedTime, DirectX::GamePad::State& pad) = 0;
    // Update the view matrix based on kb/mouse input
-   virtual void Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& kb) = 0;
+   virtual void Update(float elapsedTime, DirectX::Mouse& mouse, DirectX::Keyboard& kb, DirectX::GamePad& pad) = 0;
 
    virtual void Resize(UINT width, UINT height) {
       m_width = width;

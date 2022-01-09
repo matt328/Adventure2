@@ -198,7 +198,6 @@
     </FXCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="FileUtils.h" />
     <ClInclude Include="Source\FreeLookCamera.h" />
     <ClInclude Include="Source\Game.h" />
     <ClInclude Include="Source\Graphics\CommandQueue.h" />
@@ -208,6 +207,7 @@
     <ClInclude Include="Source\pch.h" />
     <ClInclude Include="Source\Scene\Scene.h" />
     <ClInclude Include="Source\Terrain.h" />
+    <ClInclude Include="Source\Utils\FileUtils.h" />
     <ClInclude Include="Source\Utils\Log.h" />
     <ClInclude Include="Source\Utils\StepTimer.h" />
     <ClInclude Include="Source\Utils\TextConsole.h" />
