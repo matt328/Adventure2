@@ -5,6 +5,8 @@
 #include "pch.h"
 #include "Game.h"
 #include "FreeLookCamera.h"
+#include "UI.h"
+#include "imgui/imgui.h"
 
 extern void ExitGame() noexcept;
 
@@ -21,6 +23,7 @@ Game::Game() noexcept(false) {
 
 Game::~Game() {
    if (m_deviceResources) { m_deviceResources->WaitForGpu(); }
+   UI::Shutdown();
 }
 
 // Initialize the Direct3D resources required to run.
@@ -39,6 +42,11 @@ void Game::Initialize(HWND window, int width, int height) {
    m_mouse = std::make_unique<Mouse>();
 
    m_mouse->SetWindow(window);
+
+   UI::Init(window,
+            m_deviceResources->GetD3DDevice(),
+            m_deviceResources->GetImGuiSrvDescriptorHeap().Get(),
+            m_deviceResources->GetBackBufferFormat());
 
    // TODO: Change the timer settings if you want something other than the default variable timestep mode.
    // e.g. for 60 FPS fixed timestep update logic, call:
@@ -89,8 +97,18 @@ void Game::Render() {
    auto commandList = m_deviceResources->GetCommandList();
    PIXBeginEvent(commandList, PIX_COLOR_DEFAULT, L"Render");
 
+   UI::BeginFrame();
+
    // TODO: Add your rendering code here.
    m_scene->Render(commandList);
+
+   UI::DrawDemoWindow();
+
+   ImGui::ShowDemoWindow();
+
+   commandList->SetDescriptorHeaps(1, m_deviceResources->GetImGuiSrvDescriptorHeap().GetAddressOf());
+
+   UI::EndFrame(commandList);
 
    PIXEndEvent(commandList);
 

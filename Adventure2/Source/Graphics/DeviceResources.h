@@ -24,7 +24,8 @@ namespace DX {
       static constexpr unsigned int c_EnableHDR = 0x2;
 
       DeviceResources(DXGI_FORMAT backBufferFormat = DXGI_FORMAT_B8G8R8A8_UNORM,
-                      DXGI_FORMAT depthBufferFormat = DXGI_FORMAT_D32_FLOAT, UINT backBufferCount = 2,
+                      DXGI_FORMAT depthBufferFormat = DXGI_FORMAT_D32_FLOAT,
+                      UINT backBufferCount = 2,
                       D3D_FEATURE_LEVEL minFeatureLevel = D3D_FEATURE_LEVEL_11_0,
                       unsigned int flags = 0) noexcept(false);
       ~DeviceResources();
@@ -47,8 +48,11 @@ namespace DX {
       void WaitForGpu() noexcept;
 
       void UpdateBufferResource(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> commandList,
-                                ID3D12Resource** pDestinationResource, ID3D12Resource** pIntermediateResource,
-                                size_t numElements, size_t elementSize, const void* bufferData,
+                                ID3D12Resource** pDestinationResource,
+                                ID3D12Resource** pIntermediateResource,
+                                size_t numElements,
+                                size_t elementSize,
+                                const void* bufferData,
                                 D3D12_RESOURCE_FLAGS flags);
 
       // Device Accessors.
@@ -87,6 +91,8 @@ namespace DX {
          return CD3DX12_CPU_DESCRIPTOR_HANDLE(m_dsvDescriptorHeap->GetCPUDescriptorHandleForHeapStart());
       }
 
+      inline auto GetImGuiSrvDescriptorHeap() { return m_imGuiSrvDescriptorHeap; }
+
     private:
       void MoveToNextFrame();
       void GetAdapter(IDXGIAdapter1** ppAdapter);
@@ -117,6 +123,7 @@ namespace DX {
       // Direct3D rendering objects.
       Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_rtvDescriptorHeap;
       Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_dsvDescriptorHeap;
+      Microsoft::WRL::ComPtr<ID3D12DescriptorHeap> m_imGuiSrvDescriptorHeap;
       UINT m_rtvDescriptorSize;
       D3D12_VIEWPORT m_screenViewport;
       D3D12_RECT m_scissorRect;

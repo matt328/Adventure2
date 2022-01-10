@@ -16,7 +16,6 @@
 
 // DirectX apps don't need GDI
 #define NODRAWTEXT
-#define NOGDI
 #define NOBITMAP
 
 // Include <mcx.h> if you need this
@@ -98,7 +97,8 @@ namespace DX {
    // Helper class for COM exceptions
    class com_exception : public std::exception {
     public:
-      com_exception(HRESULT hr) noexcept : result(hr) {}
+      com_exception(HRESULT hr) noexcept
+          : result(hr) {}
 
       const char* what() const override {
          static char s_str[64] = {};

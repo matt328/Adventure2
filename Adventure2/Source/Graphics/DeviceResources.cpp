@@ -33,13 +33,27 @@ namespace {
 } // namespace
 
 // Constructor for DeviceResources.
-DeviceResources::DeviceResources(DXGI_FORMAT backBufferFormat, DXGI_FORMAT depthBufferFormat, UINT backBufferCount,
-                                 D3D_FEATURE_LEVEL minFeatureLevel, unsigned int flags) noexcept(false)
-    : m_backBufferIndex(0), m_fenceValues{}, m_rtvDescriptorSize(0), m_screenViewport{}, m_scissorRect{},
-      m_backBufferFormat(backBufferFormat), m_depthBufferFormat(depthBufferFormat), m_backBufferCount(backBufferCount),
-      m_d3dMinFeatureLevel(minFeatureLevel), m_window(nullptr), m_d3dFeatureLevel(D3D_FEATURE_LEVEL_11_0),
-      m_dxgiFactoryFlags(0), m_outputSize{0, 0, 1, 1}, m_colorSpace(DXGI_COLOR_SPACE_RGB_FULL_G22_NONE_P709),
-      m_options(flags), m_deviceNotify(nullptr) {
+DeviceResources::DeviceResources(DXGI_FORMAT backBufferFormat,
+                                 DXGI_FORMAT depthBufferFormat,
+                                 UINT backBufferCount,
+                                 D3D_FEATURE_LEVEL minFeatureLevel,
+                                 unsigned int flags) noexcept(false)
+    : m_backBufferIndex(0)
+    , m_fenceValues{}
+    , m_rtvDescriptorSize(0)
+    , m_screenViewport{}
+    , m_scissorRect{}
+    , m_backBufferFormat(backBufferFormat)
+    , m_depthBufferFormat(depthBufferFormat)
+    , m_backBufferCount(backBufferCount)
+    , m_d3dMinFeatureLevel(minFeatureLevel)
+    , m_window(nullptr)
+    , m_d3dFeatureLevel(D3D_FEATURE_LEVEL_11_0)
+    , m_dxgiFactoryFlags(0)
+    , m_outputSize{0, 0, 1, 1}
+    , m_colorSpace(DXGI_COLOR_SPACE_RGB_FULL_G22_NONE_P709)
+    , m_options(flags)
+    , m_deviceNotify(nullptr) {
    if (backBufferCount < 2 || backBufferCount > MAX_BACK_BUFFER_COUNT) {
       throw std::out_of_range("invalid backBufferCount");
    }
@@ -193,6 +207,13 @@ void DeviceResources::CreateDeviceResources() {
 
       m_dsvDescriptorHeap->SetName(L"DeviceResources");
    }
+
+   D3D12_DESCRIPTOR_HEAP_DESC desc = {};
+   desc.Type = D3D12_DESCRIPTOR_HEAP_TYPE_CBV_SRV_UAV;
+   desc.NumDescriptors = 1;
+   desc.Flags = D3D12_DESCRIPTOR_HEAP_FLAG_SHADER_VISIBLE;
+   ThrowIfFailed(
+       m_d3dDevice->CreateDescriptorHeap(&desc, IID_PPV_ARGS(m_imGuiSrvDescriptorHeap.ReleaseAndGetAddressOf())));
 
    // Create a command allocator for each back buffer that will be rendered to.
    for (UINT n = 0; n < m_backBufferCount; n++) {
@@ -519,8 +540,11 @@ void DeviceResources::WaitForGpu() noexcept {
 
 void DeviceResources::UpdateBufferResource(Microsoft::WRL::ComPtr<ID3D12GraphicsCommandList> commandList,
                                            ID3D12Resource** pDestinationResource,
-                                           ID3D12Resource** pIntermediateResource, size_t numElements,
-                                           size_t elementSize, const void* bufferData, D3D12_RESOURCE_FLAGS flags) {
+                                           ID3D12Resource** pIntermediateResource,
+                                           size_t numElements,
+                                           size_t elementSize,
+                                           const void* bufferData,
+                                           D3D12_RESOURCE_FLAGS flags) {
    size_t bufferSize = numElements * elementSize;
 
    // Create committed resource in GPU memory
