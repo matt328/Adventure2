@@ -23,6 +23,21 @@
     <Filter Include="Vendor\imgui">
       <UniqueIdentifier>{cb85851c-4c62-4468-9ba5-e069255983e6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Scripts">
+      <UniqueIdentifier>{8f6182f0-5993-4477-a786-27dad25c4f1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendor\Lua">
+      <UniqueIdentifier>{9547664c-9e36-4c09-9418-1f9adc586d1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendor\Lua\Lib">
+      <UniqueIdentifier>{e81d639f-13fa-4c86-87f7-5ecd24ebd269}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendor\Lua\Include">
+      <UniqueIdentifier>{2b8c7dd5-45af-4133-9b56-545e3eec559e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendor\LuaBridge3">
+      <UniqueIdentifier>{fdab9e3b-914c-44ec-afbb-8ed705f188e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\FreeLookCamera.h">
@@ -90,6 +105,45 @@
     </ClInclude>
     <ClInclude Include="Vendor\imgui\imstb_textedit.h">
       <Filter>Vendor\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\Lua\Include\lauxlib.h">
+      <Filter>Vendor\Lua\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\Lua\Include\lua.h">
+      <Filter>Vendor\Lua\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\Lua\Include\lua.hpp">
+      <Filter>Vendor\Lua\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\Lua\Include\luaconf.h">
+      <Filter>Vendor\Lua\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\Lua\Include\lualib.h">
+      <Filter>Vendor\Lua\Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\LuaBridge3\Array.h">
+      <Filter>Vendor\LuaBridge3</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\LuaBridge3\List.h">
+      <Filter>Vendor\LuaBridge3</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\LuaBridge3\LuaBridge.h">
+      <Filter>Vendor\LuaBridge3</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\LuaBridge3\Map.h">
+      <Filter>Vendor\LuaBridge3</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\LuaBridge3\RefCountedObject.h">
+      <Filter>Vendor\LuaBridge3</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\LuaBridge3\Set.h">
+      <Filter>Vendor\LuaBridge3</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\LuaBridge3\UnorderedMap.h">
+      <Filter>Vendor\LuaBridge3</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\LuaBridge3\Vector.h">
+      <Filter>Vendor\LuaBridge3</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -170,5 +224,18 @@
     <Manifest Include="Assets\settings.manifest">
       <Filter>Assets</Filter>
     </Manifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="Vendor\Lua\Lib\liblua54.a">
+      <Filter>Vendor\Lua\Lib</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="Vendor\Lua\Lib\lua54.dll">
+      <Filter>Vendor\Lua\Lib</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Assets\Scripts\init.lua">
+      <Filter>Assets\Scripts</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>

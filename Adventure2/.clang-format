@@ -12,6 +12,8 @@ IncludeCategories:
     Priority:        3
   - Regex:           '^<.*>'
     Priority:        4
+  - Regex:           'lua.hpp'
+    Priority:        2
 PointerAlignment: Left
 Standard: Cpp11
 AlwaysBreakTemplateDeclarations: Yes

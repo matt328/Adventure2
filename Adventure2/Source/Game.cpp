@@ -3,8 +3,12 @@
 //
 
 #include "pch.h"
-#include "Game.h"
+#include "lua.hpp"
+
 #include "FreeLookCamera.h"
+#include "Game.h"
+#include "Log.h"
+#include "LuaBridge3/LuaBridge.h"
 #include "UI.h"
 #include "imgui/imgui.h"
 
@@ -19,6 +23,30 @@ Game::Game() noexcept(false) {
    m_deviceResources = std::make_unique<DX::DeviceResources>();
    m_deviceResources->RegisterDeviceNotify(this);
    m_console = std::make_unique<TextConsole>();
+   auto* L = luaL_newstate();
+
+   luaL_openlibs(L);
+
+   std::string file = std::string("Assets\\Scripts\\init.lua");
+   const char* filename = file.c_str();
+
+   if (luaL_loadfile(L, filename) || lua_pcall(L, 0, 0, 0)) {
+      LOG_WARN("Cannot run configuration file: {}", lua_tostring(L, -1));
+   }
+
+   auto someVarRef = luabridge::getGlobal(L, "someVar");
+
+   int someVarValue = someVarRef;
+
+   auto fRef = luabridge::getGlobal(L, "f");
+
+   auto result = fRef(1, 2);
+
+   int r2 = result[0];
+
+   int globalVar = 5;
+
+   auto name = luabridge::getGlobalNamespace(L).beginNamespace("test");
 }
 
 Game::~Game() {
