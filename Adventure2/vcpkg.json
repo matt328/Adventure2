@@ -1,0 +1,27 @@
+{
+	"$schema": "https://raw.githubusercontent.com/microsoft/vcpkg/master/scripts/vcpkg.schema.json",
+	"name": "adventure2",
+	"version": "0.0.1",
+	"dependencies": [
+		{
+			"name": "spdlog",
+			"platform": "x64"
+		},
+		{
+			"name": "imgui",
+			"default-features": false,
+			"features": [ "dx12-binding", "win32-binding" ],
+			"platform": "x64"
+		},
+		{
+			"name": "lua",
+			"default-features": false,
+			"features": [ "cpp", "tools" ],
+			"platform": "x64"
+		},
+		{
+			"name": "entityx",
+			"platform": "x64"
+		}
+	]
+}

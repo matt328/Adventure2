@@ -142,6 +142,7 @@
     <None Include="Assets\hmap-16.raw">
       <Filter>Assets</Filter>
     </None>
+    <None Include="..\vcpkg.json" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\directx.ico">

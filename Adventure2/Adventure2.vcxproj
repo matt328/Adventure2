@@ -83,6 +83,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg">
+    <VcpkgEnableManifest>true</VcpkgEnableManifest>
+  </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <VcpkgTriplet>x64-windows</VcpkgTriplet>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(ProjectDir)Source\Graphics;$(ProjectDir)Source\Utils;$(ProjectDir)Source;$(ProjectDir);$(ProjectDir)Vendor\spdlog\include;$(ProjectDir)Source\Scene;$(ProjectDir)Vendor\Lua\Include;$(SolutionDir)entityx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -245,6 +251,7 @@
     <ResourceCompile Include="resource.rc" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\vcpkg.json" />
     <None Include=".clang-format" />
     <None Include="Assets\debug.spritefont" />
     <None Include="Assets\hmap-16.raw" />
