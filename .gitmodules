@@ -1,0 +1,6 @@
+[submodule "entityx"]
+	path = entityx
+	url = git@github.com:alecthomas/entityx.git
+[submodule "vcpkg"]
+	path = vcpkg
+	url = git@github.com:microsoft/vcpkg.git

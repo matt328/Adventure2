@@ -85,7 +85,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(ProjectDir)Source\Graphics;$(ProjectDir)Source\Utils;$(ProjectDir)Source;$(ProjectDir);$(ProjectDir)Vendor\spdlog\include;$(ProjectDir)Source\Scene;$(ProjectDir)Vendor\Lua\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(ProjectDir)Source\Graphics;$(ProjectDir)Source\Utils;$(ProjectDir)Source;$(ProjectDir);$(ProjectDir)Vendor\spdlog\include;$(ProjectDir)Source\Scene;$(ProjectDir)Vendor\Lua\Include;$(SolutionDir)entityx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level4</WarningLevel>
@@ -113,7 +113,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(ProjectDir)Source\Graphics;$(ProjectDir)Source\Utils;$(ProjectDir)Source;$(ProjectDir);$(ProjectDir)Vendor\spdlog\include;$(ProjectDir)Source\Scene;$(ProjectDir)Vendor\Lua\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(ProjectDir)Source\Graphics;$(ProjectDir)Source\Utils;$(ProjectDir)Source;$(ProjectDir);$(ProjectDir)Vendor\spdlog\include;$(ProjectDir)Source\Scene;$(ProjectDir)Vendor\Lua\Include;$(SolutionDir)entityx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level4</WarningLevel>
@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(ProjectDir)Source\Graphics;$(ProjectDir)Source\Utils;$(ProjectDir)Source;$(ProjectDir);$(ProjectDir)Vendor\spdlog\include;$(ProjectDir)Source\Scene;$(ProjectDir)Vendor\Lua\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(ProjectDir)Source\Graphics;$(ProjectDir)Source\Utils;$(ProjectDir)Source;$(ProjectDir);$(ProjectDir)Vendor\spdlog\include;$(ProjectDir)Source\Scene;$(ProjectDir)Vendor\Lua\Include;$(SolutionDir)entityx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level4</WarningLevel>
@@ -172,7 +172,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(ProjectDir)Source\Graphics;$(ProjectDir)Source\Utils;$(ProjectDir)Source;$(ProjectDir);$(ProjectDir)Vendor\spdlog\include;$(ProjectDir)Source\Scene;$(ProjectDir)Vendor\Lua\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(ProjectDir)Source\Graphics;$(ProjectDir)Source\Utils;$(ProjectDir)Source;$(ProjectDir);$(ProjectDir)Vendor\spdlog\include;$(ProjectDir)Source\Scene;$(ProjectDir)Vendor\Lua\Include;$(SolutionDir)entityx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <WarningLevel>Level4</WarningLevel>
@@ -216,14 +216,6 @@
     <ClInclude Include="Source\Utils\Log.h" />
     <ClInclude Include="Source\Utils\StepTimer.h" />
     <ClInclude Include="Source\Utils\TextConsole.h" />
-    <ClInclude Include="Vendor\imgui\imconfig.h" />
-    <ClInclude Include="Vendor\imgui\imgui.h" />
-    <ClInclude Include="Vendor\imgui\imgui_impl_dx12.h" />
-    <ClInclude Include="Vendor\imgui\imgui_impl_win32.h" />
-    <ClInclude Include="Vendor\imgui\imgui_internal.h" />
-    <ClInclude Include="Vendor\imgui\imstb_rectpack.h" />
-    <ClInclude Include="Vendor\imgui\imstb_textedit.h" />
-    <ClInclude Include="Vendor\imgui\imstb_truetype.h" />
     <ClInclude Include="Vendor\LuaBridge3\Array.h" />
     <ClInclude Include="Vendor\LuaBridge3\List.h" />
     <ClInclude Include="Vendor\LuaBridge3\LuaBridge.h" />
@@ -232,11 +224,6 @@
     <ClInclude Include="Vendor\LuaBridge3\Set.h" />
     <ClInclude Include="Vendor\LuaBridge3\UnorderedMap.h" />
     <ClInclude Include="Vendor\LuaBridge3\Vector.h" />
-    <ClInclude Include="Vendor\Lua\Include\lauxlib.h" />
-    <ClInclude Include="Vendor\Lua\Include\lua.h" />
-    <ClInclude Include="Vendor\Lua\Include\lua.hpp" />
-    <ClInclude Include="Vendor\Lua\Include\luaconf.h" />
-    <ClInclude Include="Vendor\Lua\Include\lualib.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\FreeLookCamera.cpp" />
@@ -253,13 +240,6 @@
     <ClCompile Include="Source\Utils\Log.cpp" />
     <ClCompile Include="Source\Utils\Main.cpp" />
     <ClCompile Include="Source\Utils\TextConsole.cpp" />
-    <ClCompile Include="Vendor\imgui\imgui.cpp" />
-    <ClCompile Include="Vendor\imgui\imgui_demo.cpp" />
-    <ClCompile Include="Vendor\imgui\imgui_draw.cpp" />
-    <ClCompile Include="Vendor\imgui\imgui_impl_dx12.cpp" />
-    <ClCompile Include="Vendor\imgui\imgui_impl_win32.cpp" />
-    <ClCompile Include="Vendor\imgui\imgui_tables.cpp" />
-    <ClCompile Include="Vendor\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="resource.rc" />
@@ -276,22 +256,12 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </CopyFileToFolders>
     <None Include="packages.config" />
-    <CopyFileToFolders Include="Vendor\Lua\Lib\lua54.dll">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
-      <FileType>Document</FileType>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
-    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\directx.ico" />
   </ItemGroup>
   <ItemGroup>
     <Manifest Include="Assets\settings.manifest" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="Vendor\Lua\Lib\liblua54.a" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

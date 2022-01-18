@@ -5,7 +5,7 @@
 #include "pch.h"
 #include "Game.h"
 #include "Log.h"
-#include "imgui/imgui.h"
+#include "imgui.h"
 
 using namespace DirectX;
 

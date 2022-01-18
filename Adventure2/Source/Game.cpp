@@ -3,14 +3,11 @@
 //
 
 #include "pch.h"
-#include "lua.hpp"
 
 #include "FreeLookCamera.h"
 #include "Game.h"
 #include "Log.h"
-#include "LuaBridge3/LuaBridge.h"
 #include "UI.h"
-#include "imgui/imgui.h"
 
 extern void ExitGame() noexcept;
 

@@ -11,6 +11,15 @@
 #endif
 #include <sdkddkver.h>
 
+#include "lauxlib.h"
+#include "lua.h"
+#include "luaconf.h"
+#include "lualib.h"
+
+#include "LuaBridge3/LuaBridge.h"
+#include "entityx/entityx.h"
+#include "imgui.h"
+
 // Use the C++ standard templated min/max
 #define NOMINMAX
 
