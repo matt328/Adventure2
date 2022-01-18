@@ -89,6 +89,9 @@
   <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <VcpkgTriplet>x64-windows</VcpkgTriplet>
   </PropertyGroup>
+  <PropertyGroup Label="Vcpkg" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <VcpkgTriplet>x64-windows</VcpkgTriplet>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <AdditionalIncludeDirectories>$(ProjectDir)Vendor;$(ProjectDir)Source\Graphics;$(ProjectDir)Source\Utils;$(ProjectDir)Source;$(ProjectDir);$(ProjectDir)Vendor\spdlog\include;$(ProjectDir)Source\Scene;$(ProjectDir)Vendor\Lua\Include;$(SolutionDir)entityx;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
