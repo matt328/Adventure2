@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Adventure2", "Adventure2\Ad
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{25B05193-8600-4134-B96F-506C09CE5ED0}"
 	ProjectSection(SolutionItems) = preProject
-		vcpkg.json = vcpkg.json
+		.github\workflows\msbuild.yml = .github\workflows\msbuild.yml
 	EndProjectSection
 EndProject
 Global
