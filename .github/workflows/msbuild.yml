@@ -18,6 +18,9 @@ jobs:
       id: runvcpkg
       with:
         vcpkgJsonGlob: './vcpkg.json'
+    - name: Restore NuGet packages
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      run: nuget restore ${{env.SOLUTION_FILE_PATH}}
     - name: Add msbuild to PATH
       uses: microsoft/setup-msbuild@v1.1
     - name: Build
